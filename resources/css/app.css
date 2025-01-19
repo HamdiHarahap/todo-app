@@ -27,3 +27,24 @@
 .hidden {
     display: none;
 }
+
+@keyframes loadingAnimation {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.messageMdl {
+    transition: all 0.3s ease;
+}
+
+.animate-loading {
+    animation: loadingAnimation 3s ease-out forwards;
+}
+
+.closeMsg {
+    cursor: pointer;
+}

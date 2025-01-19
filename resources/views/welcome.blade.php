@@ -14,11 +14,24 @@
     </header>
     <main class="pt-24 px-4 blur-container">
         @if (session('success'))  
-            <section class="bg-red-200 rounded-md px-3 py-4 mb-3 flex flex-col messageMdl">
-                <button class="font-bold ml-auto closeMsg">X</button>
-                <p class="font-semibold text-lg">{{session('success')}}</p>
+            @php
+                $message = session('success');
+                $messageType = strpos($message, 'berhasil dihapus') !== false ? 'error' : 'success';
+                $bgClass = $messageType === 'error' ? 'bg-red-200' : 'bg-green-200';
+            @endphp
+            
+            <section class="{{ $bgClass }} rounded-md px-3 pt-4 pb-2 mb-3 messageMdl">
+                <div class="flex justify-between">
+                    <p class="font-semibold text-lg">{{ $message }}</p>
+                    <button class="font-bold closeMsg">X</button>
+                </div>
+                <div class="w-full">
+                    <div class="bg-black w-0 h-1 rounded-md animate-loading" id="progressBar"></div>
+                </div>
             </section>
         @endif
+
+    
         
         <div class="flex flex-col gap-2">
             <h3 class="font-lg font-semibold">Create New Todo</h3>
@@ -34,7 +47,7 @@
             <div class="flex flex-col gap-4 mt-4">
                 @foreach ($data as $item)
                 <div class="flex justify-between">
-                    <p class="font-semibold text-lg">{{$item->todo}}</p>
+                    <p class="font-semibold text-lg cursor-pointer">{{$item->todo}}</p>
                     <form class="flex gap-2" method="POST" action="{{route('todo.destroy', ['id' => $item->id])}}">
                         @csrf
                         @method('delete')

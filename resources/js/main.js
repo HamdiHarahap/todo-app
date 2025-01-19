@@ -28,3 +28,7 @@ const messageMdl = document.querySelector(".messageMdl");
 closeMsg.addEventListener("click", function () {
     messageMdl.classList.toggle("hidden");
 });
+
+setTimeout(() => {
+    messageMdl.classList.add("hidden");
+}, 3000);
