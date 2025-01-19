@@ -47,7 +47,11 @@
             <div class="flex flex-col gap-4 mt-4">
                 @foreach ($data as $item)
                 <div class="flex justify-between">
-                    <p class="font-semibold text-lg cursor-pointer">{{$item->todo}}</p>
+                    <form action="{{route('todo.updateDone', ['id' => $item->id])}}" method="POST">
+                        @csrf
+                        @method('put')
+                        <button type="submit" class="font-semibold text-lg cursor-pointer {{$item->is_done == 1 ? 'line-through' : ''}} ">{{$item->todo}}</button>
+                    </form>
                     <form class="flex gap-2" method="POST" action="{{route('todo.destroy', ['id' => $item->id])}}">
                         @csrf
                         @method('delete')

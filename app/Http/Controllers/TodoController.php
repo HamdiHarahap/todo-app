@@ -74,6 +74,29 @@ class TodoController extends Controller
         return redirect()->route('home')->with('success', 'Todo berhasil diupdate');
     }
 
+    public function updateIsDone(string $id)
+{
+    $todo = Todo::find($id);
+
+    if (!$todo) {
+        return redirect()->route('home')->with('error', 'Todo tidak ditemukan');
+    }
+
+    $is_done = $todo->is_done == true ? false : true;
+    $data = [
+        'todo' => $todo->todo,
+        'is_done' => $is_done
+    ];
+
+    $message = $is_done ? 'selesai' : 'belum selesai';
+
+    // Update todo berdasarkan id
+    Todo::where('id', $todo->id)->update($data);
+
+    return redirect()->route('home')->with('success', $todo->todo . ' ditandai ' . $message);
+}
+
+
     /**
      * Remove the specified resource from storage.
      */

@@ -10,4 +10,7 @@ Route::get('/', function () {
 Route::get('/home', [TodoController::class, 'index'])->name('home');
 Route::post('/home', [TodoController::class, 'store'])->name('todo.post');
 Route::delete('/home/{id}', [TodoController::class, 'destroy'])->name('todo.destroy');
-Route::put('/home/{id}', [TodoController::class, 'update'])->name('todo.update');
+Route::put('/home/{id}/update', [TodoController::class, 'update'])->name('todo.update');
+Route::put('/home/{id}/done', [TodoController::class, 'updateIsDone'])->name('todo.updateDone');
+
+
